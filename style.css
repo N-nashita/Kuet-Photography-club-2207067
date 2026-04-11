@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Edu SA Hand', sans-serif;
+    font-weight: 500;
+}
+.cover {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background-image: linear-gradient( rgb(129, 117, 98,0.3), rgba(120, 101, 70, 0.3)), url("pic.jpeg");
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+
+.heading{
+    color: white;
+    width: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
+.heading h1 {
+    font-family: 'Caveat', cursive; 
+    font-weight: 900; 
+    font-size: 80px;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.heading p {
+    font-size: 14px; 
+    font-weight: 400; 
+}
