@@ -6,21 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuet Photography Club</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Edu+NSW+ACT+Hand+Pre:wght@400..700&family=Edu+SA+Hand:wght@400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 
 <body>
+
+    <header class="nav-bar">
+        <div class="header">
+            <img class="pp" src="photos/KUET-Logo.png" alt="Profile picture" />
+            <p class="headerText">Khulna University of Engineering and Technology </p>
+        </div>
+        <div class="nav">
+            <ul class="nav-links">
+                <li><a href="#cover">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#gallery">Photos</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <!-- <li><a href="#discussion">Discussion</a></li> -->
+
+            </ul>
+        </div>
+    </header>
+
     <div class="cover" id="cover">
-        <div class="heading">
-            <h1>Kuet Photography Club</h1>
-            <p>
-                Join our photography club and explore creativity.
-            </p>
+        <div class="heading cover-heading">
+            <img class="cover-logo" src="photos/club logo.jpg" alt="KUET Logo" />
+            <div class="cover-text">
+                <h1>Kuet Photographic Society</h1>
+                <p>
+                    <a href="#join">Join</a> our photography club and explore creativity.
+                </p>
+            </div>
         </div>
     </div>
 
+    <footer class="contact" id="contact">
+        <p>&copy; Kuet Photographic Society </p>
+        <p>Follow us</p>
+        <div class="social-icons">
+            <a class="fb" href="https://www.facebook.com/kuetps/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a class="insta" href="https://www.instagram.com/kuetps.official/" target="_blank"><i
+                    class="fab fa-instagram"></i></a>
+            <a class="mail" href="mailto:kuetps.official@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a class="linkedin" href="https://www.linkedin.com/company/kuet-photographic-society-kuetps"
+                target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <a class="link" href="#cover" onclick="scrolltoCover()">Back to top</a>
+    </footer>
 
 
 </body>
