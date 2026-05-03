@@ -1,9 +1,66 @@
+/* Committee Slideshow Styles */
+.committee-slideshow {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  margin: 32px auto 0 auto;
+  perspective: 900px;
+}
+.committee-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(126, 110, 83, 0.13);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.95) translateY(20px);
+  transition:
+    opacity 0.7s,
+    transform 0.7s;
+  z-index: 0;
+}
+.committee-card.active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  z-index: 1;
+}
+.committee-card .member-photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 3px solid #7e6e53;
+  margin-bottom: 16px;
+  background: #e0d8c8;
+}
+.committee-card .member-info {
+  text-align: center;
+}
+.committee-card .member-role {
+  display: block;
+  font-size: 1.1rem;
+  color: #7e6e53;
+  font-weight: 700;
+}
+.committee-card .member-name {
+  display: block;
+  font-size: 1rem;
+  color: #4d4637;
+  margin-top: 2px;
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Edu SA Hand", sans-serif;
-  font-weight: 500;
+  font-family:
+    "Roboto", Arial, Helvetica, "Segoe UI", "Liberation Sans", sans-serif;
+  font-weight: 400;
 }
 
 html {
@@ -41,12 +98,12 @@ html {
 }
 
 .cover-logo {
-  height: 180px;
-  width: 180px;
+  height: 200px;
+  width: 200px;
   object-fit: cover;
-  border-radius:90px;
-  background: rgba(255,255,255,0.05);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .cover-text {
@@ -64,7 +121,6 @@ html {
 .cover-text p a:hover {
   text-decoration: underline;
 }
-
 
 .heading h1 {
   font-family: "Caveat", cursive;
@@ -143,6 +199,69 @@ html {
   width: 80%;
 }
 
+/* About Section */
+.about-section {
+  background: #f7f5f2;
+  padding: 5vw 0 4vw 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.about-container {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 3vw 3vw 2vw 3vw;
+  width: 100%;
+  max-width: 900px;
+  min-width: 260px;
+  text-align: center;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.about-section h2 {
+  font-family: "Caveat", cursive;
+  font-size: 2.5rem;
+  color: #7e6e53;
+  margin-bottom: 18px;
+  text-align: center;
+}
+.about-mission,
+.about-history {
+  font-size: 1.1rem;
+  color: #4d4637;
+  margin-bottom: 18px;
+  line-height: 1.7;
+  text-align: center;
+}
+.about-committee h3 {
+  font-size: 1.3rem;
+  color: #7e6e53;
+  margin-bottom: 10px;
+}
+.about-committee ul {
+  list-style: none;
+  padding-left: 0;
+}
+.about-committee li {
+  font-size: 1rem;
+  color: #4d4637;
+  margin-bottom: 6px;
+  padding-left: 0.5em;
+  position: relative;
+}
+.about-committee li::before {
+  content: "\2022";
+  color: #7e6e53;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
 .contact {
   display: flex;
   flex-direction: column;
@@ -208,7 +327,6 @@ html {
   font-weight: 700;
 }
 
-
 @media screen and (max-width: 840px) {
   .cover-heading {
     flex-direction: column;
@@ -221,15 +339,14 @@ html {
   .cover-logo {
     margin-bottom: 20px;
   }
-    .header p{
+  .header p {
     font-size: 15px;
     padding-top: 15px;
-
-    }
-    .nav-links{
+  }
+  .nav-links {
     padding: 3px;
-    }
-    .nav-links a {
+  }
+  .nav-links a {
     font-size: 11px;
-}
+  }
 }

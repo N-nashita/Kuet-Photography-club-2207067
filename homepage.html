@@ -39,11 +39,73 @@
             <div class="cover-text">
                 <h1>Kuet Photographic Society</h1>
                 <p>
-                    <a href="#join">Join</a> our photography club and explore creativity.
+                    Our Photo Talks for us. <a href="#join">Join Now →</a>
                 </p>
             </div>
         </div>
     </div>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="about-container">
+            <h2>About Us</h2>
+            <p class="about-mission">
+                <strong>Our Mission:</strong> The Kuet Photographic Society is committed to advancing the art and
+                science of photography within the university community. We empower our members through education,
+                collaboration, and opportunities for creative expression, striving for excellence and innovation in
+                every endeavor.
+            </p>
+            <p class="about-history">
+                <strong>Who We Are:</strong> Established in 2010, the Kuet Photographic Society serves as a
+                distinguished platform for both emerging and experienced photographers at Khulna University of
+                Engineering and Technology. Through curated workshops, exhibitions, competitions, and collaborative
+                projects, we foster a vibrant culture of visual storytelling and professional growth.
+            </p>
+            <div class="about-committee">
+                <h3>Executive Committee</h3>
+                <div class="committee-slideshow" id="committee-slideshow">
+                    <div class="committee-card active">
+                        <img src="photos/president.jpg" alt="President Photo" class="member-photo" />
+                        <div class="member-info">
+                            <span class="member-role">President</span>
+                            <span class="member-name">Name</span>
+                        </div>
+                    </div>
+                    <div class="committee-card">
+                        <img src="photos/vice-president.jpg" alt="Vice President Photo" class="member-photo" />
+                        <div class="member-info">
+                            <span class="member-role">Vice President</span>
+                            <span class="member-name">Name</span>
+                        </div>
+                    </div>
+                    <div class="committee-card">
+                        <img src="photos/general-secretary.jpg" alt="General Secretary Photo" class="member-photo" />
+                        <div class="member-info">
+                            <span class="member-role">General Secretary</span>
+                            <span class="member-name">Name</span>
+                        </div>
+                    </div>
+                    <div class="committee-card">
+                        <img src="photos/executive.jpg" alt="Executive Photo" class="member-photo" />
+                        <div class="member-info">
+                            <span class="member-role">Executive</span>
+                            <span class="member-name">Name</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                // Slideshow committee cards
+                const cards = document.querySelectorAll('.committee-card');
+                let current = 0;
+                setInterval(() => {
+                    cards[current].classList.remove('active');
+                    current = (current + 1) % cards.length;
+                    cards[current].classList.add('active');
+                }, 3000);
+            </script>
+        </div>
+    </section>
 
     <footer class="contact" id="contact">
         <p>&copy; Kuet Photographic Society </p>
