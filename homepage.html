@@ -18,32 +18,34 @@
 
     <header class="nav-bar">
         <div class="header">
-            <img class="pp" src="photos/KUET-Logo.png" alt="Profile picture" />
-            <p class="headerText">Khulna University of Engineering and Technology </p>
+            <img class="pp" src="photos/KUET-Logo.png" alt="KUET Logo" />
+            <span class="headerText">Khulna University of Engineering and Technology</span>
         </div>
-        <div class="nav">
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav" id="nav">
             <ul class="nav-links">
                 <li><a href="#cover">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#gallery">Photos</a></li>
+                <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <!-- <li><a href="#discussion">Discussion</a></li> -->
-
             </ul>
-        </div>
+        </nav>
     </header>
 
-    <div class="cover" id="cover">
+    <section class="cover" id="cover">
         <div class="heading cover-heading">
-            <img class="cover-logo" src="photos/club logo.jpg" alt="KUET Logo" />
+            <img class="cover-logo" src="photos/club logo.jpg" alt="KUETPS Logo" />
             <div class="cover-text">
                 <h1>Kuet Photographic Society</h1>
-                <p>
-                    Our Photo Talks for us. <a href="#join">Join Now →</a>
-                </p>
+                <p class="cover-slogan">Our Photos Speak for Us.</p>
+                <a class="join-btn" href="#contact">Join Now &rarr;</a>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- About Section -->
     <section class="about-section" id="about">
@@ -61,66 +63,203 @@
                 Engineering and Technology. Through curated workshops, exhibitions, competitions, and collaborative
                 projects, we foster a vibrant culture of visual storytelling and professional growth.
             </p>
-            <div class="about-committee">
-                <h3>Executive Committee</h3>
-                <div class="committee-slideshow" id="committee-slideshow">
-                    <div class="committee-card active">
-                        <img src="photos/president.jpg" alt="President Photo" class="member-photo" />
-                        <div class="member-info">
-                            <span class="member-role">President</span>
-                            <span class="member-name">Name</span>
-                        </div>
+            <div class="about-activities">
+                <h3>Our Activities</h3>
+                <div class="activities-slideshow" id="activities-slideshow">
+                    <div class="activity-card active">
+                        <img src="photos/photo-walk.jpg" alt="Photo Walk" class="activity-icon" />
+                        <h4>Photo Walks</h4>
+                        <p>Explore photography locations with fellow members and enhance your skills in real-world
+                            environments.</p>
                     </div>
-                    <div class="committee-card">
-                        <img src="photos/vice-president.jpg" alt="Vice President Photo" class="member-photo" />
-                        <div class="member-info">
-                            <span class="member-role">Vice President</span>
-                            <span class="member-name">Name</span>
-                        </div>
+                    <div class="activity-card">
+                        <img src="photos/photo-exhibition.jpg" alt="Photo Exhibition" class="activity-icon" />
+                        <h4>Photo Exhibitions</h4>
+                        <p>Showcase your best work and appreciate the artistic vision of photographers from our
+                            community.</p>
                     </div>
-                    <div class="committee-card">
-                        <img src="photos/general-secretary.jpg" alt="General Secretary Photo" class="member-photo" />
-                        <div class="member-info">
-                            <span class="member-role">General Secretary</span>
-                            <span class="member-name">Name</span>
-                        </div>
+                    <div class="activity-card">
+                        <img src="photos/workshops.jpg" alt="Workshops" class="activity-icon" />
+                        <h4>Workshops</h4>
+                        <p>Learn new techniques and refine your photography skills through expert-led training sessions.
+                        </p>
                     </div>
-                    <div class="committee-card">
-                        <img src="photos/executive.jpg" alt="Executive Photo" class="member-photo" />
-                        <div class="member-info">
-                            <span class="member-role">Executive</span>
-                            <span class="member-name">Name</span>
-                        </div>
+                    <div class="activity-card">
+                        <img src="photos/competitions.jpg" alt="Competitions" class="activity-icon" />
+                        <h4>Competitions</h4>
+                        <p>Participate in friendly competitions and win exciting prizes while challenging your
+                            creativity.</p>
                     </div>
                 </div>
             </div>
             <script>
-                // Slideshow committee cards
-                const cards = document.querySelectorAll('.committee-card');
-                let current = 0;
+                // Slideshow for activities
+                const activityCards = document.querySelectorAll('#activities-slideshow .activity-card');
+                let currentActivity = 0;
                 setInterval(() => {
-                    cards[current].classList.remove('active');
-                    current = (current + 1) % cards.length;
-                    cards[current].classList.add('active');
+                    activityCards[currentActivity].classList.remove('active');
+                    currentActivity = (currentActivity + 1) % activityCards.length;
+                    activityCards[currentActivity].classList.add('active');
                 }, 3000);
             </script>
         </div>
     </section>
 
-    <footer class="contact" id="contact">
-        <p>&copy; Kuet Photographic Society </p>
-        <p>Follow us</p>
-        <div class="social-icons">
-            <a class="fb" href="https://www.facebook.com/kuetps/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a class="insta" href="https://www.instagram.com/kuetps.official/" target="_blank"><i
-                    class="fab fa-instagram"></i></a>
-            <a class="mail" href="mailto:kuetps.official@gmail.com"><i class="fas fa-envelope"></i></a>
-            <a class="linkedin" href="https://www.linkedin.com/company/kuet-photographic-society-kuetps"
-                target="_blank"><i class="fab fa-linkedin-in"></i></a>
+
+    <!-- Photo Gallery -->
+    <section class="infinite-scroll-section" id="photo-gallery">
+        <div class="scroll-container">
+            <h2>Photo Gallery</h2>
+            <div class="infinite-scroll-wrapper">
+                <div class="infinite-scroll">
+                    <div class="scroll-item">
+                        <img src="photos/gallery1.jpg" alt="Gallery 1" />
+                    </div>
+                    <div class="scroll-item">
+                        <img src="photos/gallery2.jpg" alt="Gallery 2" />
+                    </div>
+                    <div class="scroll-item">
+                        <img src="photos/gallery3.jpg" alt="Gallery 3" />
+                    </div>
+                    <div class="scroll-item">
+                        <img src="photos/gallery4.jpg" alt="Gallery 4" />
+                    </div>
+                    <div class="scroll-item">
+                        <img src="photos/gallery5.jpg" alt="Gallery 5" />
+                    </div>
+                    <div class="scroll-item">
+                        <img src="photos/gallery6.jpg" alt="Gallery 6" />
+                    </div>
+                    <div class="scroll-item">
+                        <img src="photos/gallery7.jpg" alt="Gallery 7" />
+                    </div>
+                    <div class="scroll-item">
+                        <img src="photos/gallery8.jpg" alt="Gallery 8" />
+                    </div>
+                    <div class="scroll-item">
+                        <img src="photos/gallery9.jpg" alt="Gallery 9" />
+                    </div>
+                    <div class="scroll-item">
+                        <img src="photos/gallery10.jpg" alt="Gallery 10" />
+                    </div>
+                </div>
+            </div>
         </div>
-        <a class="link" href="#cover" onclick="scrolltoCover()">Back to top</a>
+    </section>
+
+    <!-- Executive Committee Section -->
+    <section class="gallery-section" id="gallery">
+        <div class="gallery-container">
+            <h2>Executive Committee</h2>
+            <div class="gallery-grid">
+                <div class="committee-member">
+                    <img src="photos/president.jpg" alt="President" class="gallery-img" />
+                    <div class="member-details">
+                        <span class="member-role">President</span>
+                        <span class="member-name">Name</span>
+                    </div>
+                </div>
+                <div class="committee-member">
+                    <img src="photos/vice-president.jpg" alt="Vice President" class="gallery-img" />
+                    <div class="member-details">
+                        <span class="member-role">Vice President</span>
+                        <span class="member-name">Name</span>
+                    </div>
+                </div>
+                <div class="committee-member">
+                    <img src="photos/general-secretary.jpg" alt="General Secretary" class="gallery-img" />
+                    <div class="member-details">
+                        <span class="member-role">General Secretary</span>
+                        <span class="member-name">Name</span>
+                    </div>
+                </div>
+                <div class="committee-member">
+                    <img src="photos/treasurer.jpg" alt="Treasurer" class="gallery-img" />
+                    <div class="member-details">
+                        <span class="member-role">Treasurer</span>
+                        <span class="member-name">Name</span>
+                    </div>
+                </div>
+                <div class="committee-member">
+                    <img src="photos/member.jpg" alt="Member" class="gallery-img" />
+                    <div class="member-details">
+                        <span class="member-role">Member</span>
+                        <span class="member-name">Name</span>
+                    </div>
+                </div>
+                <div class="committee-member">
+                    <img src="photos/member.jpg" alt="Member" class="gallery-img" />
+                    <div class="member-details">
+                        <span class="member-role">Member</span>
+                        <span class="member-name">Name</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="contact" id="contact">
+        <div class="footer-wrapper">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Kuet Photographic Society is dedicated to advancing photography within Khulna University of
+                        Engineering and Technology.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#cover">Home</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>Email: <a href="mailto:kuetps.official@gmail.com">kuetps.official@gmail.com</a></p>
+                    <p>Location: Khulna University of Engineering and Technology</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a class="fb" href="https://www.facebook.com/kuetps/" target="_blank" aria-label="Facebook"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="insta" href="https://www.instagram.com/kuetps.official/" target="_blank"
+                            aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a class="mail" href="mailto:kuetps.official@gmail.com" aria-label="Email"><i
+                                class="fas fa-envelope"></i></a>
+                        <a class="linkedin" href="https://www.linkedin.com/company/kuet-photographic-society-kuetps"
+                            target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Kuet Photographic Society. All rights reserved.</p>
+                <a class="back-to-top" href="#cover">Back to top ↑</a>
+            </div>
+        </div>
     </footer>
 
+    <script>
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        const navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+    </script>
 
 </body>
 
