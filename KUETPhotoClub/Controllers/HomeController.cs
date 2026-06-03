@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KUETPhotoClub.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +9,14 @@ namespace KUETPhotoClub.Controllers
 {
     public class HomeController : Controller
     {
+        private ClubDbContext db = new ClubDbContext();
+
         public ActionResult Index()
         {
-            ViewBag.Message = "Git push test";
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
+            var members = db.Members.ToList();
+            var photos = db.GalleryPhotos.ToList();
+            ViewBag.Members = members;
+            ViewBag.Photos = photos;
             return View();
         }
     }

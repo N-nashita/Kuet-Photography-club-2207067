@@ -1,0 +1,41 @@
+﻿@model List<KUETPhotoClub.Models.GalleryPhoto>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Gallery</title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/site.css")" />
+</head>
+<body>
+    <div style="max-width:800px; margin:60px auto;">
+        <h2>Manage Gallery</h2>
+        <a href="@Url.Action("Index", "Admin")">← Back to Dashboard</a>
+        <hr />
+
+        <h3>Add New Photo</h3>
+        <form action="@Url.Action("AddPhoto", "Admin")" method="post" enctype="multipart/form-data">
+            <input type="text" name="caption" placeholder="Caption" style="padding:8px; margin:6px; width:200px;" />
+            <input type="file" name="photo" accept="image/*" required style="margin:6px;" />
+            <button type="submit" style="padding:8px 20px; background:#7e6e53; color:white; border:none; border-radius:6px;">Add Photo</button>
+        </form>
+
+        <hr />
+        <h3>Current Photos</h3>
+        <div class="gallery-grid">
+            @foreach (var photo in Model)
+            {
+                <div>
+                    <img src="@Url.Content(photo.ImagePath)" style="width:200px; height:200px; object-fit:cover; border-radius:8px;" />
+                    <p>@photo.Caption</p>
+                    <form action="@Url.Action("DeletePhoto", "Admin")" method="post">
+                        <input type="hidden" name="id" value="@photo.Id" />
+                        <button type="submit" style="background:red; color:white; border:none; padding:4px 12px; border-radius:4px;">Delete</button>
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

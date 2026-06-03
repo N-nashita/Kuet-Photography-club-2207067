@@ -1,0 +1,44 @@
+﻿
+@model List<KUETPhotoClub.Models.Member>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Members</title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/site.css")" />
+</head>
+<body>
+    <div style="max-width:800px; margin:60px auto;">
+        <h2>Manage Members</h2>
+        <a href="@Url.Action("Index", "Admin")">← Back to Dashboard</a>
+        <hr />
+
+        <h3>Add New Member</h3>
+        <form action="@Url.Action("AddMember", "Admin")" method="post" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Member Name" required style="padding:8px; margin:6px; width:200px;" />
+            <input type="text" name="role" placeholder="Role (e.g. President)" required style="padding:8px; margin:6px; width:200px;" />
+            <input type="file" name="photo" accept="image/*" required style="margin:6px;" />
+            <button type="submit" style="padding:8px 20px; background:#7e6e53; color:white; border:none; border-radius:6px;">Add Member</button>
+        </form>
+
+        <hr />
+        <h3>Current Members</h3>
+        <div class="gallery-grid">
+            @foreach (var member in Model)
+            {
+                <div class="committee-member">
+                    <img src="@Url.Content(member.PhotoPath)" class="gallery-img" />
+                    <span class="member-role">@member.Role</span>
+                    <span class="member-name">@member.Name</span>
+                    <form action="@Url.Action("DeleteMember", "Admin")" method="post">
+                        <input type="hidden" name="id" value="@member.Id" />
+                        <button type="submit" style="background:red; color:white; border:none; padding:4px 12px; border-radius:4px; margin-top:6px;">Delete</button>
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>
