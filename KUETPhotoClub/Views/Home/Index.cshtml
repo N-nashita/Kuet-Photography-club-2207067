@@ -67,37 +67,17 @@
             <div class="about-activities">
                 <h3>Our Activities</h3>
                 <div class="activities-slideshow" id="activities-slideshow">
-                    <div class="activity-card active">
-                        <img src="~/Content/photos/photo-walk.jpg" alt="Photo Walk" class="activity-icon" />
-                        <h4>Photo Walks</h4>
-                        <p>
-                            Explore photography locations with fellow members and enhance your skills in real-world
-                            environments.
-                        </p>
-                    </div>
-                    <div class="activity-card">
-                        <img src="~/Content/photos/photo-exhibition.jpg" alt="Photo Exhibition" class="activity-icon" />
-                        <h4>Photo Exhibitions</h4>
-                        <p>
-                            Showcase your best work and appreciate the artistic vision of photographers from our
-                            community.
-                        </p>
-                    </div>
-                    <div class="activity-card">
-                        <img src="~/Content/photos/workshops.jpg" alt="Workshops" class="activity-icon" />
-                        <h4>Workshops</h4>
-                        <p>
-                            Learn new techniques and refine your photography skills through expert-led training sessions.
-                        </p>
-                    </div>
-                    <div class="activity-card">
-                        <img src="~/Content/photos/competitions.jpg" alt="Competitions" class="activity-icon" />
-                        <h4>Competitions</h4>
-                        <p>
-                            Participate in friendly competitions and win exciting prizes while challenging your
-                            creativity.
-                        </p>
-                    </div>
+                    @{ bool first = true; }
+                    @foreach (var activity in ViewBag.Activities)
+                    {
+                        <div class="activity-card @(first ? "active" : "")">
+                            <img src="@Url.Content(activity.PhotoPath)"
+                                 alt="@activity.Title" class="activity-icon" />
+                            <h4>@activity.Title</h4>
+                            <p>@activity.Description</p>
+                        </div>
+                        first = false;
+                    }
                 </div>
             </div>
             <script>
@@ -120,36 +100,12 @@
             <h2>Photo Gallery</h2>
             <div class="infinite-scroll-wrapper">
                 <div class="infinite-scroll">
-                    <div class="scroll-item">
-                        <img src="~/Content/photos/gallery1.jpg" alt="Gallery 1" />
-                    </div>
-                    <div class="scroll-item">
-                        <img src="~/Content/photos/gallery2.jpg" alt="Gallery 2" />
-                    </div>
-                    <div class="scroll-item">
-                        <img src="~/Content/photos/gallery3.jpg" alt="Gallery 3" />
-                    </div>
-                    <div class="scroll-item">
-                        <img src="~/Content/photos/gallery4.jpg" alt="Gallery 4" />
-                    </div>
-                    <div class="scroll-item">
-                        <img src="~/Content/photos/gallery5.jpg" alt="Gallery 5" />
-                    </div>
-                    <div class="scroll-item">
-                        <img src="~/Content/photos/gallery6.jpg" alt="Gallery 6" />
-                    </div>
-                    <div class="scroll-item">
-                        <img src="~/Content/photos/gallery7.jpg" alt="Gallery 7" />
-                    </div>
-                    <div class="scroll-item">
-                        <img src="~/Content/photos/gallery8.jpg" alt="Gallery 8" />
-                    </div>
-                    <div class="scroll-item">
-                        <img src="~/Content/photos/gallery9.jpg" alt="Gallery 9" />
-                    </div>
-                    <div class="scroll-item">
-                        <img src="~/Content/photos/gallery10.jpg" alt="Gallery 10" />
-                    </div>
+                    @foreach (var photo in ViewBag.Photos)
+                    {
+                        <div class="scroll-item">
+                            <img src="@Url.Content(photo.ImagePath)" alt="@photo.Caption" />
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -160,48 +116,16 @@
         <div class="gallery-container">
             <h2>Executive Committee</h2>
             <div class="gallery-grid">
-                <div class="committee-member">
-                    <img src="~/Content/photos/president.jpg" alt="President" class="gallery-img" />
-                    <div class="member-details">
-                        <span class="member-role">President</span>
-                        <span class="member-name">Name</span>
+                @foreach (var member in ViewBag.Members)
+                {
+                    <div class="committee-member">
+                        <img src="@Url.Content(member.PhotoPath)" alt="@member.Role" class="gallery-img" />
+                        <div class="member-details">
+                            <span class="member-role">@member.Role</span>
+                            <span class="member-name">@member.Name</span>
+                        </div>
                     </div>
-                </div>
-                <div class="committee-member">
-                    <img src="~/Content/photos/vice-president.jpg" alt="Vice President" class="gallery-img" />
-                    <div class="member-details">
-                        <span class="member-role">Vice President</span>
-                        <span class="member-name">Name</span>
-                    </div>
-                </div>
-                <div class="committee-member">
-                    <img src="~/Content/photos/general-secretary.jpg" alt="General Secretary" class="gallery-img" />
-                    <div class="member-details">
-                        <span class="member-role">General Secretary</span>
-                        <span class="member-name">Name</span>
-                    </div>
-                </div>
-                <div class="committee-member">
-                    <img src="~/Content/photos/treasurer.jpg" alt="Treasurer" class="gallery-img" />
-                    <div class="member-details">
-                        <span class="member-role">Treasurer</span>
-                        <span class="member-name">Name</span>
-                    </div>
-                </div>
-                <div class="committee-member">
-                    <img src="~/Content/photos/member.jpg" alt="Member" class="gallery-img" />
-                    <div class="member-details">
-                        <span class="member-role">Member</span>
-                        <span class="member-name">Name</span>
-                    </div>
-                </div>
-                <div class="committee-member">
-                    <img src="~/Content/photos/member.jpg" alt="Member" class="gallery-img" />
-                    <div class="member-details">
-                        <span class="member-role">Member</span>
-                        <span class="member-name">Name</span>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </section>

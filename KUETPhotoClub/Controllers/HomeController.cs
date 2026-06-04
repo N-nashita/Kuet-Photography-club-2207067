@@ -17,6 +17,7 @@ namespace KUETPhotoClub.Controllers
             var photos = db.GalleryPhotos.ToList();
             ViewBag.Members = members;
             ViewBag.Photos = photos;
+            ViewBag.Activities = db.Activities.ToList();
             return View();
         }
     }

@@ -15,7 +15,47 @@ public class AdminController : Controller
         return View();
     }
 
-    // ---- MEMBERS ----
+    // Activities
+    public ActionResult Activities()
+    {
+        var activities = db.Activities.ToList();
+        return View(activities);
+    }
+
+    [HttpPost]
+    public ActionResult AddActivity(string title, string description, HttpPostedFileBase photo)
+    {
+        if (photo != null && photo.ContentLength > 0)
+        {
+            var fileName = Path.GetFileName(photo.FileName);
+            var path = Path.Combine(Server.MapPath("~/Content/photos/activities/"), fileName);
+            Directory.CreateDirectory(Server.MapPath("~/Content/photos/activities/"));
+            photo.SaveAs(path);
+
+            db.Activities.Add(new Activity
+            {
+                Title = title,
+                Description = description,
+                PhotoPath = "~/Content/photos/activities/" + fileName
+            });
+            db.SaveChanges();
+        }
+        return RedirectToAction("Activities");
+    }
+
+    [HttpPost]
+    public ActionResult DeleteActivity(int id)
+    {
+        var activity = db.Activities.Find(id);
+        if (activity != null)
+        {
+            db.Activities.Remove(activity);
+            db.SaveChanges();
+        }
+        return RedirectToAction("Activities");
+    }
+
+    // Members
     public ActionResult Members()
     {
         var members = db.Members.ToList();
@@ -55,7 +95,7 @@ public class AdminController : Controller
         return RedirectToAction("Members");
     }
 
-    // ---- GALLERY ----
+    // Gallery
     public ActionResult Gallery()
     {
         var photos = db.GalleryPhotos.ToList();
