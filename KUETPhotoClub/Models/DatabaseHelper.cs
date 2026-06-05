@@ -8,7 +8,7 @@ using KUETPhotoClub.Models;
 public class DatabaseHelper
 {
     private string connectionString = ConfigurationManager
-        .ConnectionStrings["KUETPhotoClub"].ConnectionString;
+        .ConnectionStrings["MyDbConnection"].ConnectionString;
 
     // ---- MEMBERS ----
     public List<Member> GetAllMembers()
