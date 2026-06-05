@@ -9,15 +9,13 @@ namespace KUETPhotoClub.Controllers
 {
     public class HomeController : Controller
     {
-        private ClubDbContext db = new ClubDbContext();
+        private DatabaseHelper db = new DatabaseHelper();
 
         public ActionResult Index()
         {
-            var members = db.Members.ToList();
-            var photos = db.GalleryPhotos.ToList();
-            ViewBag.Members = members;
-            ViewBag.Photos = photos;
-            ViewBag.Activities = db.Activities.ToList();
+            ViewBag.Members = db.GetAllMembers();
+            ViewBag.Photos = db.GetAllPhotos();
+            ViewBag.Activities = db.GetAllActivities();
             return View();
         }
     }

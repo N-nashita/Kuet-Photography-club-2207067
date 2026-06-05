@@ -1,1 +1,8 @@
 .vs/
+*.mdf
+*.ldf
+App_Data/
+bin/
+obj/
+.vs/
+packages/

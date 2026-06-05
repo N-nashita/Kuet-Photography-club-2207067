@@ -1,136 +1,118 @@
-﻿using KUETPhotoClub.Models;
-using System;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using KUETPhotoClub.Models;
 
-public class AdminController : Controller
+namespace KUETPhotoClub.Controllers
 {
-    private ClubDbContext db = new ClubDbContext();
-
-    // Admin Dashboard
-    public ActionResult Index()
+    public class AdminController : Controller
     {
-        return View();
-    }
+        private DatabaseHelper db = new DatabaseHelper();
 
-    // Activities
-    public ActionResult Activities()
-    {
-        var activities = db.Activities.ToList();
-        return View(activities);
-    }
-
-    [HttpPost]
-    public ActionResult AddActivity(string title, string description, HttpPostedFileBase photo)
-    {
-        if (photo != null && photo.ContentLength > 0)
+        public ActionResult Index()
         {
-            var fileName = Path.GetFileName(photo.FileName);
-            var path = Path.Combine(Server.MapPath("~/Content/photos/activities/"), fileName);
-            Directory.CreateDirectory(Server.MapPath("~/Content/photos/activities/"));
-            photo.SaveAs(path);
+            return View();
+        }
 
-            db.Activities.Add(new Activity
+        // ---- MEMBERS ----
+        public ActionResult Members()
+        {
+            var members = db.GetAllMembers();
+            return View(members);
+        }
+
+        [HttpPost]
+        public ActionResult AddMember(string name, string role, HttpPostedFileBase photo)
+        {
+            if (photo != null && photo.ContentLength > 0)
             {
-                Title = title,
-                Description = description,
-                PhotoPath = "~/Content/photos/activities/" + fileName
-            });
-            db.SaveChanges();
+                var fileName = Path.GetFileName(photo.FileName);
+                var path = Path.Combine(Server.MapPath("~/Content/photos/members/"), fileName);
+                Directory.CreateDirectory(Server.MapPath("~/Content/photos/members/"));
+                photo.SaveAs(path);
+
+                db.AddMember(new Member
+                {
+                    Name = name,
+                    Role = role,
+                    PhotoPath = "~/Content/photos/members/" + fileName
+                });
+            }
+            return RedirectToAction("Members");
         }
-        return RedirectToAction("Activities");
-    }
 
-    [HttpPost]
-    public ActionResult DeleteActivity(int id)
-    {
-        var activity = db.Activities.Find(id);
-        if (activity != null)
+        [HttpPost]
+        public ActionResult DeleteMember(int id)
         {
-            db.Activities.Remove(activity);
-            db.SaveChanges();
+            db.DeleteMember(id);
+            return RedirectToAction("Members");
         }
-        return RedirectToAction("Activities");
-    }
 
-    // Members
-    public ActionResult Members()
-    {
-        var members = db.Members.ToList();
-        return View(members);
-    }
-
-    [HttpPost]
-    public ActionResult AddMember(string name, string role, HttpPostedFileBase photo)
-    {
-        if (photo != null && photo.ContentLength > 0)
+        // ---- GALLERY ----
+        public ActionResult Gallery()
         {
-            var fileName = Path.GetFileName(photo.FileName);
-            var path = Path.Combine(Server.MapPath("~/Content/photos/members/"), fileName);
-            Directory.CreateDirectory(Server.MapPath("~/Content/photos/members/"));
-            photo.SaveAs(path);
+            var photos = db.GetAllPhotos();
+            return View(photos);
+        }
 
-            db.Members.Add(new Member
+        [HttpPost]
+        public ActionResult AddPhoto(string caption, HttpPostedFileBase photo)
+        {
+            if (photo != null && photo.ContentLength > 0)
             {
-                Name = name,
-                Role = role,
-                PhotoPath = "~/Content/photos/members/" + fileName
-            });
-            db.SaveChanges();
+                var fileName = Path.GetFileName(photo.FileName);
+                var path = Path.Combine(Server.MapPath("~/Content/photos/gallery/"), fileName);
+                Directory.CreateDirectory(Server.MapPath("~/Content/photos/gallery/"));
+                photo.SaveAs(path);
+
+                db.AddPhoto(new GalleryPhoto
+                {
+                    Caption = caption,
+                    ImagePath = "~/Content/photos/gallery/" + fileName
+                });
+            }
+            return RedirectToAction("Gallery");
         }
-        return RedirectToAction("Members");
-    }
 
-    [HttpPost]
-    public ActionResult DeleteMember(int id)
-    {
-        var member = db.Members.Find(id);
-        if (member != null)
+        [HttpPost]
+        public ActionResult DeletePhoto(int id)
         {
-            db.Members.Remove(member);
-            db.SaveChanges();
+            db.DeletePhoto(id);
+            return RedirectToAction("Gallery");
         }
-        return RedirectToAction("Members");
-    }
 
-    // Gallery
-    public ActionResult Gallery()
-    {
-        var photos = db.GalleryPhotos.ToList();
-        return View(photos);
-    }
-
-    [HttpPost]
-    public ActionResult AddPhoto(string caption, HttpPostedFileBase photo)
-    {
-        if (photo != null && photo.ContentLength > 0)
+        // ---- ACTIVITIES ----
+        public ActionResult Activities()
         {
-            var fileName = Path.GetFileName(photo.FileName);
-            var path = Path.Combine(Server.MapPath("~/Content/photos/gallery/"), fileName);
-            Directory.CreateDirectory(Server.MapPath("~/Content/photos/gallery/"));
-            photo.SaveAs(path);
+            var activities = db.GetAllActivities();
+            return View(activities);
+        }
 
-            db.GalleryPhotos.Add(new GalleryPhoto
+        [HttpPost]
+        public ActionResult AddActivity(string title, string description, HttpPostedFileBase photo)
+        {
+            if (photo != null && photo.ContentLength > 0)
             {
-                Caption = caption,
-                ImagePath = "~/Content/photos/gallery/" + fileName
-            });
-            db.SaveChanges();
-        }
-        return RedirectToAction("Gallery");
-    }
+                var fileName = Path.GetFileName(photo.FileName);
+                var path = Path.Combine(Server.MapPath("~/Content/photos/activities/"), fileName);
+                Directory.CreateDirectory(Server.MapPath("~/Content/photos/activities/"));
+                photo.SaveAs(path);
 
-    [HttpPost]
-    public ActionResult DeletePhoto(int id)
-    {
-        var photo = db.GalleryPhotos.Find(id);
-        if (photo != null)
-        {
-            db.GalleryPhotos.Remove(photo);
-            db.SaveChanges();
+                db.AddActivity(new Activity
+                {
+                    Title = title,
+                    Description = description,
+                    PhotoPath = "~/Content/photos/activities/" + fileName
+                });
+            }
+            return RedirectToAction("Activities");
         }
-        return RedirectToAction("Gallery");
+
+        [HttpPost]
+        public ActionResult DeleteActivity(int id)
+        {
+            db.DeleteActivity(id);
+            return RedirectToAction("Activities");
+        }
     }
 }
