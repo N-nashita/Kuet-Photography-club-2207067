@@ -1,11 +1,12 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminRequests.aspx.cs" Inherits="KUETPhotoClub.AdminRequests" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminRequests.aspx.cs" Inherits="KUETPhotoClub.AdminRequests" EnableEventValidation="false" %>
 <%@ Register Src="~/AdminNav.ascx" TagPrefix="uc" TagName="AdminNav" %>
 
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8" />
     <title>Join Requests</title>
-    <link rel="stylesheet" href="~/Content/site.css" />
+    <link rel="stylesheet" href="Content/site.css" />
     <style>
         .requests-container {
             max-width: 900px;
@@ -16,7 +17,7 @@
             border-collapse: collapse;
             margin-top: 20px;
             background-color: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .request-table th {
             background-color: #7e6e53;
@@ -71,27 +72,9 @@
             font-size: 12px;
             font-weight: 600;
         }
-        .btn-approve {
-            background-color: #28a745;
-            color: white;
-        }
-        .btn-approve:hover {
-            background-color: #218838;
-        }
-        .btn-reject {
-            background-color: #dc3545;
-            color: white;
-        }
-        .btn-reject:hover {
-            background-color: #c82333;
-        }
-        .btn-delete {
-            background-color: #6c757d;
-            color: white;
-        }
-        .btn-delete:hover {
-            background-color: #5a6268;
-        }
+        .btn-approve { background-color: #28a745; color: white; }
+        .btn-reject { background-color: #dc3545; color: white; }
+        .btn-delete { background-color: #6c757d; color: white; }
     </style>
 </head>
 <body>
@@ -99,7 +82,15 @@
         <div class="requests-container">
             <uc:AdminNav runat="server" ID="AdminNav1" />
 
-            <h2 style="margin-top: 40px;">Join Requests</h2>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:40px;">
+                <h2 style="margin:0; color:#7e6e53; font-family:'Caveat',cursive; font-size:2rem;">
+                    <%= Request.QueryString["filter"] == "approved" ? "Approved Members" : "Join Requests" %>
+                </h2>
+                <a href="AdminIndex.aspx" style="padding:10px 20px; background:#7e6e53; color:white; 
+                   border-radius:8px; text-decoration:none; font-weight:600;">
+                    Back to Dashboard
+                </a>
+            </div>
 
             <asp:Repeater ID="requestsRepeater" runat="server">
                 <HeaderTemplate>
@@ -118,32 +109,36 @@
                         <tbody>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <tr>
-                        <td><%# Eval("FullName") %></td>
-                        <td><%# Eval("Email") %></td>
-                        <td><%# Eval("Phone") %></td>
-                        <td><%# Eval("Department") %></td>
-                        <td><%# Convert.ToDateTime(Eval("RequestDate")).ToString("MMM dd, yyyy") %></td>
-                        <td>
-                            <span class="status-<%# Eval("Status").ToString().ToLower() %>">
-                                <%# Eval("Status") %>
-                            </span>
-                        </td>
-                        <td>
-                            <div class="action-buttons">
-                                <asp:Button ID="btnApprove" runat="server" CssClass="btn-small btn-approve" 
-                                    Text="Approve" CommandName="Approve" CommandArgument='<%# Eval("Id") %>' 
-                                    OnCommand="RequestCommand" />
-                                <asp:Button ID="btnReject" runat="server" CssClass="btn-small btn-reject" 
-                                    Text="Reject" CommandName="Reject" CommandArgument='<%# Eval("Id") %>' 
-                                    OnCommand="RequestCommand" />
-                                <asp:Button ID="btnDelete" runat="server" CssClass="btn-small btn-delete" 
-                                    Text="Delete" CommandName="Delete" CommandArgument='<%# Eval("Id") %>' 
-                                    OnCommand="RequestCommand" 
-                                    OnClientClick="return confirm('Are you sure?');" />
-                            </div>
-                        </td>
-                    </tr>
+                    <asp:PlaceHolder ID="PlaceHolder1" runat="server" Visible="true">
+                        <tr>
+                            <td><%# Eval("FullName") %></td>
+                            <td><%# Eval("Email") %></td>
+                            <td><%# Eval("Phone") %></td>
+                            <td><%# Eval("Department") %></td>
+                            <td><%# Convert.ToDateTime(Eval("RequestDate")).ToString("MMM dd, yyyy") %></td>
+                            <td>
+                                <span class="status-<%# Eval("Status").ToString().ToLower() %>">
+                                    <%# Eval("Status") %>
+                                </span>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <asp:Button ID="btnApprove" runat="server" CssClass="btn-small btn-approve" 
+                                        Text="Approve" CommandName="Approve" CommandArgument='<%# Eval("Id") %>' 
+                                        OnCommand="RequestCommand"
+                                        Visible='<%# Eval("Status").ToString() == "Pending" %>' />
+                                    <asp:Button ID="btnReject" runat="server" CssClass="btn-small btn-reject" 
+                                        Text="Reject" CommandName="Reject" CommandArgument='<%# Eval("Id") %>' 
+                                        OnCommand="RequestCommand"
+                                        Visible='<%# Eval("Status").ToString() == "Pending" %>' />
+                                    <asp:Button ID="btnDelete" runat="server" CssClass="btn-small btn-delete" 
+                                        Text="Delete" CommandName="Delete" CommandArgument='<%# Eval("Id") %>' 
+                                        OnCommand="RequestCommand" 
+                                        OnClientClick="return confirm('Are you sure?');" />
+                                </div>
+                            </td>
+                        </tr>
+                    </asp:PlaceHolder>
                 </ItemTemplate>
                 <FooterTemplate>
                         </tbody>

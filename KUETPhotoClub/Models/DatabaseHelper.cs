@@ -205,12 +205,24 @@ public class DatabaseHelper
     {
         using (SqlConnection con = new SqlConnection(connectionString))
         {
+            con.Open();
+
+            // Update status
             SqlCommand cmd = new SqlCommand(
                 "UPDATE JoinRequests SET Status = @Status WHERE Id = @Id", con);
             cmd.Parameters.AddWithValue("@Status", status);
             cmd.Parameters.AddWithValue("@Id", id);
-            con.Open();
             cmd.ExecuteNonQuery();
+
+            // If approved, add to Members table
+            if (status == "Approved")
+            {
+                SqlCommand insertCmd = new SqlCommand(
+                    "INSERT INTO Members (Name, Role, PhotoPath) " +
+                    "SELECT FullName, Department, '' FROM JoinRequests WHERE Id = @Id", con);
+                insertCmd.Parameters.AddWithValue("@Id", id);
+                insertCmd.ExecuteNonQuery();
+            }
         }
     }
 

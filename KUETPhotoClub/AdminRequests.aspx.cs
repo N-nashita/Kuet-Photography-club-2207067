@@ -1,16 +1,15 @@
 using System;
 using KUETPhotoClub.Models;
+
 namespace KUETPhotoClub
 {
     public partial class AdminRequests : System.Web.UI.Page
     {
         protected global::System.Web.UI.WebControls.Repeater requestsRepeater;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
                 LoadRequests();
-            }
         }
 
         private void LoadRequests()
@@ -19,12 +18,20 @@ namespace KUETPhotoClub
             {
                 DatabaseHelper dbHelper = new DatabaseHelper();
                 var requests = dbHelper.GetAllJoinRequests();
+                string filter = Request.QueryString["filter"];
+                if (filter == "approved")
+                {
+                    requests = requests.FindAll(r => r.Status == "Approved");
+                }
+                else
+                {
+                    requests = requests.FindAll(r => r.Status == "Pending");
+                }
                 requestsRepeater.DataSource = requests;
                 requestsRepeater.DataBind();
             }
             catch (Exception ex)
             {
-                // Log error or display message
                 System.Diagnostics.Debug.WriteLine("Error loading requests: " + ex.Message);
             }
         }
@@ -53,7 +60,7 @@ namespace KUETPhotoClub
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Error processing request command: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Error: " + ex.Message);
             }
         }
     }
