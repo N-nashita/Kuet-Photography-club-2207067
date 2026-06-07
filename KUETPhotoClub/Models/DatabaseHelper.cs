@@ -151,4 +151,77 @@ public class DatabaseHelper
             cmd.ExecuteNonQuery();
         }
     }
+
+    // ---- JOIN REQUESTS ----
+    public static void AddJoinRequest(string fullName, string email, string phone, string department, string reason)
+    {
+        string connectionString = ConfigurationManager
+            .ConnectionStrings["MyDbConnection"].ConnectionString;
+
+        using (SqlConnection con = new SqlConnection(connectionString))
+        {
+            SqlCommand cmd = new SqlCommand(
+                "INSERT INTO JoinRequests (FullName, Email, Phone, Department, Reason, RequestDate, Status) " +
+                "VALUES (@FullName, @Email, @Phone, @Department, @Reason, @RequestDate, @Status)", con);
+            cmd.Parameters.AddWithValue("@FullName", fullName);
+            cmd.Parameters.AddWithValue("@Email", email);
+            cmd.Parameters.AddWithValue("@Phone", phone);
+            cmd.Parameters.AddWithValue("@Department", department);
+            cmd.Parameters.AddWithValue("@Reason", reason);
+            cmd.Parameters.AddWithValue("@RequestDate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@Status", "Pending");
+            con.Open();
+            cmd.ExecuteNonQuery();
+        }
+    }
+
+    public List<JoinRequestModel> GetAllJoinRequests()
+    {
+        var requests = new List<JoinRequestModel>();
+        using (SqlConnection con = new SqlConnection(connectionString))
+        {
+            SqlCommand cmd = new SqlCommand("SELECT * FROM JoinRequests ORDER BY RequestDate DESC", con);
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                requests.Add(new JoinRequestModel
+                {
+                    Id = (int)reader["Id"],
+                    FullName = reader["FullName"].ToString(),
+                    Email = reader["Email"].ToString(),
+                    Phone = reader["Phone"].ToString(),
+                    Department = reader["Department"].ToString(),
+                    Reason = reader["Reason"].ToString(),
+                    RequestDate = (DateTime)reader["RequestDate"],
+                    Status = reader["Status"].ToString()
+                });
+            }
+        }
+        return requests;
+    }
+
+    public void UpdateJoinRequestStatus(int id, string status)
+    {
+        using (SqlConnection con = new SqlConnection(connectionString))
+        {
+            SqlCommand cmd = new SqlCommand(
+                "UPDATE JoinRequests SET Status = @Status WHERE Id = @Id", con);
+            cmd.Parameters.AddWithValue("@Status", status);
+            cmd.Parameters.AddWithValue("@Id", id);
+            con.Open();
+            cmd.ExecuteNonQuery();
+        }
+    }
+
+    public void DeleteJoinRequest(int id)
+    {
+        using (SqlConnection con = new SqlConnection(connectionString))
+        {
+            SqlCommand cmd = new SqlCommand("DELETE FROM JoinRequests WHERE Id = @Id", con);
+            cmd.Parameters.AddWithValue("@Id", id);
+            con.Open();
+            cmd.ExecuteNonQuery();
+        }
+    }
 }

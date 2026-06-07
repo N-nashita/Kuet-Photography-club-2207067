@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuet Photography Club</title>
-    <link rel="stylesheet" href="~/Content/site.css">
+    <link rel="stylesheet" href="Content/site.css">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Edu+NSW+ACT+Hand+Pre:wght@400..700&family=Edu+SA+Hand:wght@400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
@@ -18,7 +18,7 @@
 <body>
     <header class="nav-bar">
         <div class="header">
-            <img class="pp" src="~/Content/photos/KUET-Logo.png" alt="KUET Logo" />
+            <img class="pp" src="Content/photos/KUET-Logo.png" alt="KUET Logo" />
             <span class="headerText">Khulna University of Engineering and Technology</span>
         </div>
         <button class="hamburger" id="hamburger">
@@ -38,14 +38,55 @@
 
     <section class="cover" id="cover">
         <div class="heading cover-heading">
-            <img class="cover-logo" src="~/Content/photos/club logo.jpg" alt="KUETPS Logo" />
+            <img class="cover-logo" src="Content/photos/club logo.jpg" alt="KUETPS Logo" />
             <div class="cover-text">
                 <h1>Kuet Photographic Society</h1>
                 <p class="cover-slogan">Our Photos Speak for Us.</p>
-                <a class="join-btn" href="#contact">Join Now &rarr;</a>
+                <button class="join-btn" type="button" onclick="openJoinForm()">Join Now &rarr;</button>
             </div>
         </div>
     </section>
+
+    <!-- Join Form Modal -->
+    <div id="joinModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9999; overflow-y: auto;">
+        <div style="background-color: white; padding: 40px; border-radius: 12px; width: 90%; max-width: 500px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h2 style="margin: 0; color: #333;">Join KUET Photography Club</h2>
+                <button onclick="closeJoinForm()" style="background: none; border: none; font-size: 28px; cursor: pointer; color: #666;">×</button>
+            </div>
+
+            <form id="joinForm" method="post" onsubmit="submitJoinForm(event)">
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; margin-bottom: 6px; color: #333; font-weight: 500;">Full Name</label>
+                    <input type="text" name="fullName" placeholder="Your Full Name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box;" />
+                </div>
+
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; margin-bottom: 6px; color: #333; font-weight: 500;">Email Address</label>
+                    <input type="email" name="email" placeholder="your.email@example.com" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box;" />
+                </div>
+
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; margin-bottom: 6px; color: #333; font-weight: 500;">Phone Number</label>
+                    <input type="tel" name="phone" placeholder="+880 1XX XXX XXXX" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box;" />
+                </div>
+
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; margin-bottom: 6px; color: #333; font-weight: 500;">Department/Batch</label>
+                    <input type="text" name="department" placeholder="e.g., CSE/2022" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box;" />
+                </div>
+
+                <div style="margin-bottom: 24px;">
+                    <label style="display: block; margin-bottom: 6px; color: #333; font-weight: 500;">Why do you want to join?</label>
+                    <textarea name="reason" placeholder="Tell us why you're interested in joining..." required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; height: 100px; resize: vertical;"></textarea>
+                </div>
+
+                <button type="submit" style="width: 100%; padding: 12px; background-color: #7e6e53; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s;">
+                    Submit Request
+                </button>
+            </form>
+        </div>
+    </div>
 
     <!-- About Section -->
     <section class="about-section" id="about">
@@ -191,6 +232,57 @@
                 nav.classList.remove('active');
                 hamburger.classList.remove('active');
             });
+        });
+
+        // Join form modal
+        function openJoinForm() {
+            var modal = document.getElementById('joinModal');
+            modal.style.display = 'block';
+            modal.style.paddingTop = '60px';
+        }
+
+        function closeJoinForm() {
+            document.getElementById('joinModal').style.display = 'none';
+        }
+
+        function submitJoinForm(event) {
+            event.preventDefault();
+            const formData = new FormData(document.getElementById('joinForm'));
+            const data = {
+                fullName: formData.get('fullName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                department: formData.get('department'),
+                reason: formData.get('reason')
+            };
+
+            // Send to server via AJAX
+            fetch('JoinRequest.aspx', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Your request has been submitted successfully!');
+                    closeJoinForm();
+                    document.getElementById('joinForm').reset();
+                } else {
+                    alert('Error submitting request. Please try again.');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('joinModal').addEventListener('click', function (event) {
+            if (event.target === this) {
+                closeJoinForm();
+            }
         });
     </script>
 

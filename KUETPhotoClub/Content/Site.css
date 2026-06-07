@@ -348,7 +348,6 @@ html {
     color: #f7f5f2;
     margin-bottom: 8px;
 }
-
 .join-btn {
     display: inline-block;
     background: #7e6e53;
@@ -368,6 +367,12 @@ html {
         background: #a89c7d;
         color: #4d4637;
     }
+
+button.join-btn {
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+}
 
 /* header section */
 .header {
@@ -864,3 +869,4 @@ html {
         width: 45px;
     }
 }
+
