@@ -6,7 +6,6 @@
 <head>
     <meta charset="UTF-8" />
     <title>Join Requests</title>
-    <link rel="stylesheet" href="Content/site.css" />
     <style>
         .requests-container {
             max-width: 900px;
@@ -82,11 +81,11 @@
         <div class="requests-container">
             <uc:AdminNav runat="server" ID="AdminNav1" />
 
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:40px;">
-                <h2 style="margin:0; color:#7e6e53; font-family:'Caveat',cursive; font-size:2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="font-size:2rem;">
                     <%= Request.QueryString["filter"] == "approved" ? "Approved Members" : "Join Requests" %>
                 </h2>
-                <a href="AdminIndex.aspx" style="padding:10px 20px; background:#7e6e53; color:white; 
+                <a href="AdminIndex.aspx" style="padding:8px 12px; background:#7e6e53; color:white; 
                    border-radius:8px; text-decoration:none; font-weight:600;">
                     Back to Dashboard
                 </a>

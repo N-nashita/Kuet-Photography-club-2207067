@@ -170,6 +170,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Committee.aspx.cs">
+      <DependentUpon>Committee.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Committee.aspx.designer.cs">
+      <DependentUpon>Committee.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Default.aspx.cs">
@@ -198,6 +205,7 @@
     <Content Include="AdminMembers.aspx" />
     <Content Include="AdminNav.ascx" />
     <Content Include="AdminRequests.aspx" />
+    <Content Include="Committee.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />

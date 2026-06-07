@@ -13,6 +13,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Edu+NSW+ACT+Hand+Pre:wght@400..700&family=Edu+SA+Hand:wght@400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        .ex-btn {
+            padding: 10px 28px;
+            background: #7e6e53;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.2s;
+            margin-bottom: 25px;
+        }
+            .ex-btn:hover {
+                background: #a89c7d;
+                color: white;
+            }
+    </style>
 </head>
 
 <body>
@@ -30,8 +47,10 @@
             <ul class="nav-links">
                 <li><a href="#cover">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#photo-gallery">Gallery</a></li>
+                <li><a href="#gallery">Members</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="#log-in">LogIn</a></li>
             </ul>
         </nav>
     </header>
@@ -151,21 +170,14 @@
 
     <!-- Executive Committee Section -->
     <section class="gallery-section" id="gallery">
-        <div class="gallery-container">
-            <h2>Executive Committee</h2>
-            <div class="gallery-grid">
-                <asp:Repeater ID="membersRepeater" runat="server">
-                    <ItemTemplate>
-                        <div class="committee-member">
-                            <img src="<%# Eval("PhotoPath") %>" alt="<%# Eval("Role") %>" class="gallery-img" />
-                            <div class="member-details">
-                                <span class="member-role"><%# Eval("Role") %></span>
-                                <span class="member-name"><%# Eval("Name") %></span>
-                            </div>
-                        </div>
-                    </ItemTemplate>
-                </asp:Repeater>
-            </div>
+        <div class="gallery-container" style="text-align:center;">
+            <h2>Meet Our Executive Committee</h2>
+            <p style="color:#5d5047; font-size:1.1rem; margin-bottom:24px;">
+                Our club is led by a passionate team of photography enthusiasts.
+            </p>
+            <a href="Committee.aspx" class="ex-btn">
+                Meet the Team &rarr;
+            </a>
         </div>
     </section>
 

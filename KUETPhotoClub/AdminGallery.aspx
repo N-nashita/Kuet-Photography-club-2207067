@@ -1,4 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminGallery.aspx.cs" Inherits="KUETPhotoClub.AdminGallery" %>
+<%@ Register Src="~/AdminNav.ascx" TagPrefix="uc" TagName="AdminNav" %>
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,10 @@
     <form id="form1" runat="server" enctype="multipart/form-data">
         <div style="max-width:800px; margin:60px auto;">
             <h2>Manage Gallery</h2>
-            <a href="AdminIndex.aspx">← Back to Dashboard</a>
+            <a href="AdminIndex.aspx" style="padding:8px 12px; background:#7e6e53; color:white; 
+               border-radius:8px; text-decoration:none; font-weight:600;">
+                Back to Dashboard
+            </a>
             <hr />
 
             <h3>Add New Photo</h3>

@@ -4,42 +4,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Members</title>
-    <link rel="stylesheet" href="~/Content/site.css" />
+    <meta charset="UTF-8" />
+    <title>Assign Roles</title>
+    <style>
+        .members-container { max-width:1000px; padding:0 20px; }
+        .form-box { background:white; border-radius:12px; padding:24px; box-shadow:0 2px 12px rgba(0,0,0,0.08); margin-bottom:30px; }
+        .form-box h3 { margin-bottom:16px; }
+        .form-row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+        .form-row select, .form-row input { padding:10px; border:1px solid #d0c9bf; border-radius:8px; font-size:1rem; }
+        .form-row select { width:250px; }
+        .form-row input { width:200px; }
+        .btn-primary { padding:10px 24px; background:#7e6e53; color:white; border:none; border-radius:8px; cursor:pointer; font-size:1rem; font-weight:600; }
+        .members-table { width:100%; border-collapse:collapse; background:white; border-radius:12px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+        .members-table th { background:#7e6e53; color:white; padding:12px; text-align:left; }
+        .members-table td { padding:12px; border-bottom:1px solid #eee; }
+        .members-table tr:hover { background:#f9f7f4; }
+        .btn-edit { padding:6px 14px; background:#7e6e53; color:white; border:none; border-radius:6px; cursor:pointer; }
+        .edit-input { padding:6px; border:1px solid #d0c9bf; border-radius:6px; width:160px; }
+    </style>
 </head>
 <body>
-    <form id="form1" runat="server" enctype="multipart/form-data">
-        <div style="max-width:1000px; margin:60px auto;">
+    <form id="form1" runat="server">
+        <div class="members-container">
             <uc:AdminNav runat="server" ID="AdminNav1" />
 
-            <div style="margin-top:30px;">
-                <h2>Members</h2>
-                <a href="AdminIndex.aspx">← Back to Dashboard</a>
-                <hr />
+            <h2 style="margin-bottom:10px;">Assign Roles</h2>
+            <a href="AdminIndex.aspx" style="padding:8px 12px; background:#7e6e53; color:white; 
+               border-radius:8px; text-decoration:none; font-weight:600;">
+                Back to Dashboard
+            </a>
+            <hr />
 
-                <h3>Add New Member</h3>
-                <div>
-                    <asp:TextBox ID="txtMemberName" runat="server" placeholder="Member Name" required="true" style="padding:8px; margin:6px; width:200px;"></asp:TextBox>
-                    <asp:TextBox ID="txtMemberRole" runat="server" placeholder="Role (e.g. President)" required="true" style="padding:8px; margin:6px; width:200px;"></asp:TextBox>
-                    <asp:FileUpload ID="fuMemberPhoto" runat="server" accept="image/*" required="true" style="margin:6px;" />
-                    <asp:Button ID="btnAddMember" runat="server" Text="Add Member" OnClick="btnAddMember_Click" style="padding:8px 20px; background:#7e6e53; color:white; border:none; border-radius:6px; cursor:pointer;" />
+            <!-- Assign Role Form -->
+            <div class="form-box" style="margin-top:24px;">
+                <h3>Assign Role to Approved Member</h3>
+                <div class="form-row">
+                    <asp:DropDownList ID="ddlMembers" runat="server" style="padding:10px; border:1px solid #d0c9bf; border-radius:8px; font-size:1rem; width:250px;">
+                    </asp:DropDownList>
+                    <asp:TextBox ID="txtRole" runat="server" placeholder="Role (e.g. President)" style="padding:10px; border:1px solid #d0c9bf; border-radius:8px; font-size:1rem; width:200px;"></asp:TextBox>
+                    <asp:Button ID="btnAssign" runat="server" Text="Assign Role" CssClass="btn-primary" OnClick="btnAssign_Click" />
                 </div>
+                <asp:Label ID="lblMessage" runat="server" Visible="false" style="margin-top:10px; display:block;" />
+            </div>
 
-                <hr />
-                <h3>Current Members</h3>
-                <div class="gallery-grid">
-                    <asp:Repeater ID="membersRepeater" runat="server">
-                        <ItemTemplate>
-                            <div class="committee-member">
-                                <img src="<%# Eval("PhotoPath") %>" class="gallery-img" style="width:150px; height:150px; object-fit:cover;" />
-                                <span class="member-role"><%# Eval("Role") %></span>
-                                <span class="member-name"><%# Eval("Name") %></span>
-                                <asp:LinkButton ID="btnDelete" runat="server" CommandArgument='<%# Eval("Id") %>' OnCommand="DeleteMember_Command" 
-                                    style="background:red; color:white; border:none; padding:4px 12px; border-radius:4px; margin-top:6px; display:inline-block; cursor:pointer;">Delete</asp:LinkButton>
-                            </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                </div>
+            <!-- Current Members Table -->
+            <div class="form-box">
+                <h3>Current Members & Roles</h3>
+                <table class="members-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Current Role</th>
+                            <th>Edit Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <asp:Repeater ID="membersRepeater" runat="server">
+                            <ItemTemplate>
+                                <tr>
+                                    <td><%# Eval("Name") %></td>
+                                    <td><%# Eval("Role") %></td>
+                                    <td>
+                                        <asp:TextBox ID="txtEditRole" runat="server" Text='<%# Eval("Role") %>' CssClass="edit-input"></asp:TextBox>
+                                        <asp:Button ID="btnEdit" runat="server" Text="Save" CssClass="btn-edit"
+                                            CommandName="Edit" CommandArgument='<%# Eval("Id") %>'
+                                            OnCommand="EditRole_Command" />
+                                    </td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </tbody>
+                </table>
             </div>
         </div>
     </form>

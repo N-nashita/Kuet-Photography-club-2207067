@@ -1,23 +1,19 @@
-﻿/* Set padding to keep content from hitting the edges */
-.body-content {
+﻿.body-content {
     margin-top: 15px;
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
 .dl-horizontal dt {
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
 }
+
 /* Responsive Design */
 @media (max-width: 900px) {
     .cover-heading {
@@ -82,7 +78,7 @@ textarea {
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
     padding: 3vw 3vw 2vw 3vw;
     width: 100%;
-    max-width: 1100px;
+    max-width: 1800px;
     min-width: 260px;
     text-align: center;
     margin: 0 auto;
@@ -151,6 +147,7 @@ textarea {
     font-size: 0.9rem;
     color: #4d4637;
 }
+
 /* Activities Section Styles */
 .about-activities {
     margin-top: 40px;
@@ -362,11 +359,11 @@ html {
     transition: background 0.2s, color 0.2s;
 }
 
-    .join-btn:hover,
-    .join-btn:focus {
-        background: #a89c7d;
-        color: #4d4637;
-    }
+.join-btn:hover,
+.join-btn:focus {
+     background: #a89c7d;
+     color: #4d4637;
+}
 
 button.join-btn {
     cursor: pointer;
@@ -689,6 +686,8 @@ button.join-btn {
         transform: translateX(-50%);
     }
 }
+
+
 
 /* Footer Styles */
 .contact {

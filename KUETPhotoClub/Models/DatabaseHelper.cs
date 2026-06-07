@@ -236,4 +236,17 @@ public class DatabaseHelper
             cmd.ExecuteNonQuery();
         }
     }
+
+    public void UpdateMemberRole(int id, string role)
+    {
+        using (SqlConnection con = new SqlConnection(connectionString))
+        {
+            SqlCommand cmd = new SqlCommand(
+                "UPDATE Members SET Role = @Role WHERE Id = @Id", con);
+            cmd.Parameters.AddWithValue("@Role", role);
+            cmd.Parameters.AddWithValue("@Id", id);
+            con.Open();
+            cmd.ExecuteNonQuery();
+        }
+    }
 }
