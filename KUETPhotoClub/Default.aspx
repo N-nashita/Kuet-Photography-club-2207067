@@ -129,7 +129,7 @@
                     <asp:Repeater ID="activitiesRepeater" runat="server">
                         <ItemTemplate>
                             <div class="activity-card <%# Container.ItemIndex == 0 ? "active" : "" %>">
-                                <img src="<%# Eval("PhotoPath") %>" alt="<%# Eval("Title") %>" class="activity-icon" />
+                                <img src='<%# Eval("PhotoPath").ToString().Replace("~/", "") %>' alt="<%# Eval("Title") %>" class="activity-icon" />
                                 <h4><%# Eval("Title") %></h4>
                                 <p><%# Eval("Description") %></p>
                             </div>
@@ -159,7 +159,7 @@
                     <asp:Repeater ID="photosRepeater" runat="server">
                         <ItemTemplate>
                             <div class="scroll-item">
-                                <img src="<%# Eval("ImagePath") %>" alt="<%# Eval("Caption") %>" />
+                                <img src='<%# Eval("ImagePath").ToString().Replace("~/", "") %>' alt="<%# Eval("Caption") %>" />
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>

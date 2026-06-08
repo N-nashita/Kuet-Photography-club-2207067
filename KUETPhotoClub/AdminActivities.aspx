@@ -30,8 +30,8 @@
             <div class="gallery-grid">
                 <asp:Repeater ID="activitiesRepeater" runat="server">
                     <ItemTemplate>
-                        <div style="text-align:center;">
-                            <img src="<%# Eval("PhotoPath") %>" style="width:200px; height:200px; object-fit:cover; border-radius:8px;" />
+                        <div style="text-align:center;  margin:10px;">
+                            <img src='<%# Eval("PhotoPath").ToString().Replace("~/", "") %>' style="width:200px; height:200px; object-fit:cover; border-radius:8px; " />
                             <h4><%# Eval("Title") %></h4>
                             <p><%# Eval("Description") %></p>
                             <asp:LinkButton ID="btnDelete" runat="server" CommandArgument='<%# Eval("Id") %>' OnCommand="DeleteActivity_Command"
