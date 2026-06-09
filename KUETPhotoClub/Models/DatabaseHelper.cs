@@ -286,4 +286,17 @@ public class DatabaseHelper
             return (int)cmd.ExecuteScalar() > 0;
         }
     }
+
+    public void UpdateMemberPhoto(int id, string photoPath)
+    {
+        using (SqlConnection con = new SqlConnection(connectionString))
+        {
+            SqlCommand cmd = new SqlCommand(
+                "UPDATE Members SET PhotoPath = @PhotoPath WHERE Id = @Id", con);
+            cmd.Parameters.AddWithValue("@PhotoPath", photoPath);
+            cmd.Parameters.AddWithValue("@Id", id);
+            con.Open();
+            cmd.ExecuteNonQuery();
+        }
+    }
 }

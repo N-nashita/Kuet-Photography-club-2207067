@@ -24,7 +24,7 @@
     </style>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" enctype="multipart/form-data">
         <div class="members-container">
             <uc:AdminNav runat="server" ID="AdminNav1" />
 
@@ -53,15 +53,21 @@
                 <table class="members-table">
                     <thead>
                         <tr>
+                            <th>Photo</th>
                             <th>Name</th>
                             <th>Current Role</th>
                             <th>Edit Role</th>
+                            <th>Update Photo</th>
                         </tr>
                     </thead>
                     <tbody>
                         <asp:Repeater ID="membersRepeater" runat="server">
                             <ItemTemplate>
                                 <tr>
+                                    <td>
+                                        <img src='<%# Eval("PhotoPath").ToString().Replace("~/","") %>' 
+                                             style="width:50px; height:50px; border-radius:50%; object-fit:cover; border:2px solid #7e6e53;" />
+                                    </td>
                                     <td><%# Eval("Name") %></td>
                                     <td><%# Eval("Role") %></td>
                                     <td>
@@ -70,8 +76,14 @@
                                             CommandName="Edit" CommandArgument='<%# Eval("Id") %>'
                                             OnCommand="EditRole_Command" />
                                     </td>
+                                    <td>
+                                        <asp:FileUpload ID="fuPhoto" runat="server" accept="image/*" />
+                                        <asp:Button ID="btnUpdatePhoto" runat="server" Text="Upload" CssClass="btn-edit"
+                                            CommandName="UpdatePhoto" CommandArgument='<%# Eval("Id") %>'
+                                            OnCommand="UpdatePhoto_Command" />
+                                    </td>
                                 </tr>
-                            </ItemTemplate>
+                            </ItemTemplate> 
                         </asp:Repeater>
                     </tbody>
                 </table>

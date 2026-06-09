@@ -1,6 +1,7 @@
-using System;
-using System.Web.UI.WebControls;
 using KUETPhotoClub.Models;
+using System;
+using System.IO;
+using System.Web.UI.WebControls;
 
 namespace KUETPhotoClub
 {
@@ -107,6 +108,38 @@ namespace KUETPhotoClub
             catch (Exception ex)
             {
                 // Log error
+            }
+        }
+
+        protected void UpdatePhoto_Command(object sender, CommandEventArgs e)
+        {
+            try
+            {
+                int memberId = int.Parse(e.CommandArgument.ToString());
+                RepeaterItem item = ((Button)sender).NamingContainer as RepeaterItem;
+                FileUpload fuPhoto = item.FindControl("fuPhoto") as FileUpload;
+
+                if (fuPhoto != null && fuPhoto.HasFile)
+                {
+                    string fileName = memberId + "_" + Path.GetFileName(fuPhoto.FileName);
+                    string folderPath = Server.MapPath("~/Content/photos/members/");
+
+                    if (!Directory.Exists(folderPath))
+                        Directory.CreateDirectory(folderPath);
+
+                    string filePath = System.IO.Path.Combine(folderPath, fileName);
+                    fuPhoto.SaveAs(filePath);
+
+                    db.UpdateMemberPhoto(memberId, "Content/photos/members/" + fileName);
+                    LoadCurrentMembers();
+                    LoadApprovedMembers();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Error uploading photo: " + ex.Message;
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+                lblMessage.Visible = true;
             }
         }
     }
