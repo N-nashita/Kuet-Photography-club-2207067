@@ -50,7 +50,7 @@
                 <li><a href="#photo-gallery">Gallery</a></li>
                 <li><a href="#gallery">Members</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="#log-in">LogIn</a></li>
+                <li><a href="AdminLogin.aspx">LogIn</a></li>
             </ul>
         </nav>
     </header>
@@ -223,7 +223,14 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Kuet Photographic Society. All rights reserved.</p>
-                <a class="back-to-top" href="#cover">Back to top ↑</a>
+                <div style="display:flex; gap:20px; align-items:center;">
+                    <a class="back-to-top" href="#cover">Back to top &#8593;</a>
+                    <% if (Session["IsAdmin"] != null && (bool)Session["IsAdmin"]) { %>
+                        <a class="back-to-top" href="AdminLogout.aspx" style="color:#a89c7d; text-decoration:none; font-size:0.9rem;">
+                            Logout
+                        </a>
+                    <% } %>
+                </div>
             </div>
         </div>
     </footer>

@@ -9,7 +9,12 @@ namespace KUETPhotoClub
 
         protected void Page_Load(object sender, EventArgs e)
         {
-                LoadRequests();
+            if (Session["IsAdmin"] == null || !(bool)Session["IsAdmin"])
+            {
+                Response.Redirect("AdminLogin.aspx");
+                return;
+            }
+            LoadRequests();
         }
 
         private void LoadRequests()

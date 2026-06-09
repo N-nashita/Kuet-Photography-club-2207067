@@ -22,7 +22,7 @@
         }
         .btn-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
             margin-top: 30px;
         }
@@ -54,7 +54,7 @@
                 <a href="AdminActivities.aspx" class="dash-btn">Manage Activities</a>
                 <a href="AdminRequests.aspx" class="dash-btn">Join Requests</a>
                 <a href="AdminRequests.aspx?filter=approved" class="dash-btn">Members</a>
-
+                <a href="Default.aspx" class="dash-btn" style="background:#4d4637;">&larr; Back to Website</a>
             </div>
         </div>
     </form>

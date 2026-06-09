@@ -14,6 +14,11 @@ namespace KUETPhotoClub
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["IsAdmin"] == null || !(bool)Session["IsAdmin"])
+            {
+                Response.Redirect("AdminLogin.aspx");
+                return;
+            }
             if (!IsPostBack)
             {
                 LoadPhotos();

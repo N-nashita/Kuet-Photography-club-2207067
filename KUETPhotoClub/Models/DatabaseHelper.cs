@@ -249,4 +249,41 @@ public class DatabaseHelper
             cmd.ExecuteNonQuery();
         }
     }
+
+    // ---- ADMIN AUTH ----
+    public bool AdminExists()
+    {
+        using (SqlConnection con = new SqlConnection(connectionString))
+        {
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Admins", con);
+            con.Open();
+            return (int)cmd.ExecuteScalar() > 0;
+        }
+    }
+
+    public void AddAdmin(string username, string password)
+    {
+        using (SqlConnection con = new SqlConnection(connectionString))
+        {
+            SqlCommand cmd = new SqlCommand(
+                "INSERT INTO Admins (Username, Password) VALUES (@Username, @Password)", con);
+            cmd.Parameters.AddWithValue("@Username", username);
+            cmd.Parameters.AddWithValue("@Password", password);
+            con.Open();
+            cmd.ExecuteNonQuery();
+        }
+    }
+
+    public bool ValidateAdmin(string username, string password)
+    {
+        using (SqlConnection con = new SqlConnection(connectionString))
+        {
+            SqlCommand cmd = new SqlCommand(
+                "SELECT COUNT(*) FROM Admins WHERE Username = @Username AND Password = @Password", con);
+            cmd.Parameters.AddWithValue("@Username", username);
+            cmd.Parameters.AddWithValue("@Password", password);
+            con.Open();
+            return (int)cmd.ExecuteScalar() > 0;
+        }
+    }
 }
